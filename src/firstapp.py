@@ -7,6 +7,7 @@ def index():
     # return "<h1>Hola Mundo DevOps</h1>"
     return render_template('index.html') 
 
+# def index2():
 
 
 
