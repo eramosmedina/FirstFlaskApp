@@ -1,10 +1,10 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'container_name', default_value: 'my-first-flask-app', description: 'Nombre del contendor')
-        string(name: 'image_name', default_value: 'di-my-first-flask-app', description: 'Nombre de la imagen')
-        string(name: 'image_tag', default_value: 'latest', description: 'Etiqueta de la imagen')
-        string(name: 'app_port', default_value: '8000', description: 'Puerto para publicar la app del contendor')
+        string(name: 'container_name', defaultValue: 'my-first-flask-app', description: 'Nombre del contendor')
+        string(name: 'image_name', defaultValue: 'di-my-first-flask-app', description: 'Nombre de la imagen')
+        string(name: 'image_tag', defaultValue: 'latest', description: 'Etiqueta de la imagen')
+        string(name: 'app_port', defaultValue: '8000', description: 'Puerto para publicar la app del contendor')
     }
     environment {
         final_name = "${container_name}${image_tag}${app_port}"
