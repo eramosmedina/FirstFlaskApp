@@ -25,7 +25,7 @@ pipeline {
         stage('Stop and Clean') {
             when {
                 expression {
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${final_name})"')
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=${final_name}')
                     echo "DOCKER_EXIST:${DOCKER_EXIST}"
                     return DOCKER_EXIST != ''
                 }
