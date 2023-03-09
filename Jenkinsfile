@@ -7,7 +7,7 @@ pipeline {
         string(name: 'app_port', defaultValue: '8000', description: 'Puerto para publicar la app del contendor')
     }
     environment {
-        final_name = "${container_name}${image_tag}${app_port}"
+        final_name = "${container_name}-${image_tag}-${app_port}"
         final_image_name = "${image_name}:${image_tag}"
                 
     }
@@ -26,6 +26,7 @@ pipeline {
             when {
                 expression {
                     DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${final_name})"')
+                    echo "DOCKER_EXIST:${DOCKER_EXIST}"
                     return DOCKER_EXIST != ''
                 }
             }
