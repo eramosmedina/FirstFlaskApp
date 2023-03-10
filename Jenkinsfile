@@ -7,25 +7,16 @@ pipeline {
         string(name: 'app_port', defaultValue: '8000', description: 'Puerto para publicar la app del contendor')
     }
     environment {
-        final_name = "${container_name}-${image_tag}-${app_port}"
+        final_container_name = "${container_name}-${image_tag}-${app_port}"
         final_image_name = "${image_name}:${image_tag}"
                 
-    }
-    
-    stages {
-
-        stage('Checkout') {
-            steps { 
-                checkout scmGit(branches: [[name: '*/main']], 
-                extensions: [], 
-                userRemoteConfigs: [[url: 'https://github.com/eramosmedina/FirstFlaskApp.git']])
-            }
-        }
+    }    
+    stages { 
 
         stage('Stop and Clean') {
             when {
                 expression {
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=${final_name}')
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=${final_container_name}')
                     echo "DOCKER_EXIST:${DOCKER_EXIST}"
                     return DOCKER_EXIST != ''
                 }
@@ -34,9 +25,9 @@ pipeline {
                 script {
                     sh '''
                     echo Stoping container...
-                    docker stop ${final_name}
+                    docker stop ${final_container_name}
                     echo 'Cleaning old container...'
-                    docker rm ${final_name}
+                    docker rm ${final_container_name}
                     echo 'Cleaning old image...'
                     docker rmi -f ${final_image_name}
                     '''
@@ -55,7 +46,7 @@ pipeline {
             steps {
                 echo 'Deploying.... '
                 echo 'Running Container...'
-                sh 'docker run -dp ${app_port}:8000 --name ${final_name} ${final_image_name}'
+                sh 'docker run -dp ${app_port}:8000 --name ${final_container_name} ${final_image_name}'
             }
         }
         
