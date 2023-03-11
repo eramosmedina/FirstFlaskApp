@@ -3,7 +3,7 @@ pipeline {
     // environment {
     //     container_name = "my-first-flask-app"
     //     image_name = "di-my-first-flask-app"
-    //     image_tag = "latest"
+    //     imageo_tag = "latest"
     //     app_port = "8000"
     //     target = "main" 
     //     final_container_name = "${container_name}-${target}-${image_tag}-${app_port}"
