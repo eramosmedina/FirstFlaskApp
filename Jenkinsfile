@@ -2,8 +2,7 @@ pipeline {
     agent any         
     stages {
         stage('Building Main Branch')
-        {
-            echo 'VoyAhora'
+        {            
             when { 
                 branch 'main' 
                 }
