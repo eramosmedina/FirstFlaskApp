@@ -1,19 +1,9 @@
 pipeline {
-    agent any  
-    // environment {
-    //     container_name = "my-first-flask-app"
-    //     image_name = "di-my-first-flask-app"
-    //     imageo_tag = "latest"
-    //     app_port = "8000"
-    //     target = "main" 
-    //     final_container_name = "${container_name}-${target}-${image_tag}-${app_port}"
-    //     "my-first-flask-app_main_latest_8000"
-    //     "di-my-first-flask-app_main:latest"
-    //     final_image_name = "${image_name}:${image_tag}"                
-    // }    
+    agent any         
     stages {
         stage('Building Main Branch')
         {
+            echo 'VoyAhora'
             when { 
                 branch 'main' 
                 }
