@@ -1,13 +1,12 @@
 pipeline {
-    agent any         
+    agent any    
     stages {
-        stage('Building Main Branch')
-        {            
+        stage('Building Main Branch')               
             when { 
                 branch 'main' 
-                }
-            stages {
-                stage('Stop and Clean') {
+            }
+            steps {
+                stage('Stop and Clean Main Branch') {
                     when {
                         expression {
                             DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=my-first-flask-app_main_latest_8000')
@@ -28,13 +27,13 @@ pipeline {
                         }
                     }
                 }
-                stage('Build ') {
+                stage('Build Main Branch') {
                     steps {                
                         echo 'Building Docker Image...'
                         sh 'docker build -t di-my-first-flask-app_main:latest .'
                     }
                 }        
-                stage('Deploy') {
+                stage('Deploy Main Branch') {
                     steps {
                         echo 'Deploying.... '
                         echo 'Running Container...'
@@ -47,9 +46,9 @@ pipeline {
         {
             when { 
                 branch 'dev' 
-                }
+            }
             stages {
-                stage('Stop and Clean') {
+                stage('Stop and Clean Dev Branch') {
                     when {
                         expression {
                             DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=my-first-flask-app_dev_latest_9000')
@@ -70,13 +69,13 @@ pipeline {
                         }
                     }
                 }
-                stage('Build ') {
+                stage('Build Dev Branch') {
                     steps {                
                         echo 'Building Docker Image...'
                         sh 'docker build -t di-my-first-flask-app_dev:latest .'
                     }
                 }        
-                stage('Deploy') {
+                stage('Deploy Dev Branch') {
                     steps {
                         echo 'Deploying.... '
                         echo 'Running Container...'
