@@ -14,7 +14,9 @@ pipeline {
     stages {
         stage('Building Main Branch')
         {
-            when { branch '*/main' }
+            when { 
+                branch 'main' 
+                }
             stages {
                 stage('Stop and Clean') {
                     when {
@@ -54,7 +56,9 @@ pipeline {
         }
         stage('Building Dev Branch')
         {
-            when { branch '*/dev' }
+            when { 
+                branch 'dev' 
+                }
             stages {
                 stage('Stop and Clean') {
                     when {
