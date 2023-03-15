@@ -50,23 +50,26 @@ pipeline {
                 }                
             }
         }
-        stage('Build') {
+        stage('Build Main') {
             when {
                 branch 'main'
             }
             steps {
                 sh 'echo Building Docker Image...'
                 sh 'docker build -t di-my-first-flask-app_main:latest .'
-            }
+            }             
+        }
+        stage('Build Dev')
+        {
             when {
                 branch 'dev'
             }
             steps {
                 sh 'echo Building Docker Image...'
                 sh 'docker build -t di-my-first-flask-app_dev:latest .'
-            } 
+            }
         }
-        stage('Deploy') {
+        stage('Deploy Main') {
             when {
                 branch 'main'
             }
@@ -74,7 +77,10 @@ pipeline {
                 echo 'Deploying.... '
                 echo 'Running Container...'
                 sh 'docker run -dp 8000:8000 --name my-first-flask-app_main_latest_8000 di-my-first-flask-app_main:latest'
-            }
+            }            
+        }
+        stage('Deploy Dev')
+        {
             when {
                 branch 'dev'
             }
