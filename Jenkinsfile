@@ -1,7 +1,7 @@
 pipeline {
     agent any    
     stages {
-        stage('Stop and Clean') {
+        stage('Stop and Clean Main Artifacts') {
             when {
                 allOf {
                     branch 'main'
@@ -23,8 +23,10 @@ pipeline {
                     docker rmi -f "di-my-first-flask-app_main:latest"
                     '''
                 }                
-            }
-            //----------------------------------------------    
+            }   
+        }
+        stage ('Stop and Clean Dev Artifacts')
+        {
             when {
                 allOf {
                     branch 'dev'
@@ -46,7 +48,7 @@ pipeline {
                     docker rmi -f "di-my-first-flask-app_dev:latest"
                     '''
                 }                
-            }    
+            }
         }
         stage('Build') {
             when {
